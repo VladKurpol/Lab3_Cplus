@@ -31,47 +31,52 @@ int main()
 		pS = strchr(pS, ' ');
 		std::cout << "\t" << pS - string;
 		pointer++;
-	} while (pS);
+	} while (pS); // цикл поиска колличества пробелов
 
 	
 	std::cout << "\n" << "===========================" << "\n";
 
-	int *array = new int[pointer];
+	int *array = new int[pointer]; // создаем динамический массив для индексов мест, где находятся пробелы
 
 	pS = strchr(string, ' ');
 
-	array[0] = 0;
-	array[1] = pS - string;
+	array[0] = 0; // индекс начала строки
+	array[1] = pS - string; // индекс первого пробела 
 	std::cout << "array:" << "\n";
 	std::cout << "array 0) " << array[0] << "\n";
 	std::cout << "array 1) " << array[1] << "\n";
 
-	for (size_t i = 2; i <= pointer; i++)
+	for (size_t i = 2; i <= pointer; i++) // начинаем со второго, потому что я вручную присвоил массиву 0 и 1 значения.
 	{
-		if (pS)
+		if (pS) // присваеваем остальным элементам массива значения индексов последующих пробелов
 		{
 			pS++;
 			pS = strchr(pS, ' ');
 			array[i] = pS - string;
-			array[pointer] = length;
+			array[pointer] = length; // отмечаем индекс конца строки
 			std::cout << "array " << i << ") " << array[i] << "\n";
 		}
 		
 	}
 
-	for (size_t i = 0; i <= pointer ; i++)
+	for (size_t i = 0; i <= pointer ; i++) // цикл для массива с индексами
 	{
-		for (size_t j = 0; j < 20; j++)
+		for (size_t j = 0; j < 20; j++) // цикл для проверки символов со строки
 		{
 			if ((string[j] == string[array[i] - 1]) && (string[j] != '\0'))
 			{
 				Output(i, j, pointer, string, array);
+				continue;
+			}
+			else if (j == array[i] - 1)
+			{
+				continue;
 			}
 		}
 	}
 }
 
-void Output(int i, int j, int pointer, char *string, int *array)
+void Output(int i, int j, int pointer, char *string, int *array) // функция вывода найденых слов
 {
 	std::cout << "your word:";
 	
